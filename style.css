@@ -1,0 +1,227 @@
+     * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background-image: url(./1_oFxTSpWqSMZCP2XTTbl5lg.gif);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #e6eef8;
+            overflow: hidden;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        form {
+            width: 100%;
+            max-width: 720px;
+            z-index: 2;
+        }
+
+        input[type="search"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 18px;
+            border-radius: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: inherit;
+            outline: none;
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.45);
+            transition: all 0.35s ease;
+        }
+
+        input[type="search"]::placeholder {
+            color: rgba(230, 238, 248, 0.6);
+        }
+
+        input[type="search"]:focus {
+            transform: translateY(-3px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 16px 40px rgba(2, 6, 23, 0.55);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .hint {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: rgba(230, 238, 248, 0.65);
+        }
+
+        .dock {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 18px;
+            padding: 16px 22px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            z-index: 5;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .dock-item .label {
+            position: absolute;
+            bottom: 95px;
+            padding: 8px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            opacity: 0;
+            transform: translateY(14px) scale(0.9);
+            transition: all 0.28s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+        }
+
+        .dock-item:hover .label {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .dock-item img.icon {
+            width: 68px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 18px;
+            cursor: pointer;
+            transition:
+                transform 0.28s cubic-bezier(.2, .8, .2, 1),
+                box-shadow 0.28s ease,
+                filter 0.28s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+        }
+
+        .dock-item:hover img.icon {
+            transform: translateY(-16px) scale(1.22);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.38);
+            filter: brightness(1.08);
+        }
+
+        .dock:hover .dock-item:not(:hover) img.icon {
+            transform: scale(0.96);
+        }
+
+        .chatgpt-box {
+            position: relative;
+        }
+
+        .chat-preview {
+            position: fixed;
+            right: -520px;
+            top: 80px;
+            width: 420px;
+            max-width: calc(100vw - 40px);
+            border-radius: 28px;
+            border: 8px solid #0EA982;
+            background: #0EA982;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+            transition: right 0.45s ease;
+            z-index: 4;
+        }
+
+        .chat-preview img {
+            width: 100%;
+            display: block;
+            border-radius: 18px;
+        }
+
+        .chatgpt-box:hover .chat-preview {
+            right: 28px;
+        }
+
+        .chatgpt-box:hover img.icon {
+            transform: translateY(-16px) scale(1.22) rotate(180deg);
+        }
+
+        @media (max-width: 900px) {
+            .dock {
+                gap: 12px;
+                padding: 14px 16px;
+            }
+
+            .dock-item img.icon {
+                width: 58px;
+                height: 58px;
+            }
+
+            .dock-item .label {
+                bottom: 82px;
+                font-size: 13px;
+            }
+
+            .chat-preview {
+                width: 320px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dock {
+                gap: 10px;
+                padding: 12px 14px;
+                border-radius: 22px;
+            }
+
+            .dock-item img.icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 14px;
+            }
+
+            .dock-item:hover img.icon {
+                transform: translateY(-10px) scale(1.14);
+            }
+
+            .dock-item .label {
+                bottom: 72px;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .chatgpt-box:hover img.icon {
+                transform: translateY(-10px) scale(1.14) rotate(180deg);
+            }
+
+            .chat-preview {
+                display: none;
+            }
+        }

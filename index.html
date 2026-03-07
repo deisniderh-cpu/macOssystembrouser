@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="uz">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Yandex qidiruv</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background-image: url(./1_oFxTSpWqSMZCP2XTTbl5lg.gif);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #e6eef8;
+            overflow: hidden;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .top-fade {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(to bottom, rgba(3, 6, 15, 0.42), rgba(3, 6, 15, 0));
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .top-shell {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1180px, calc(100% - 28px));
+            z-index: 30;
+        }
+
+        .topbar {
+            display: grid;
+            grid-template-columns: 220px 1fr 180px;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 12px 42px rgba(0, 0, 0, 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .brand-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: rgba(230, 238, 248, 0.68);
+            margin-top: 2px;
+        }
+
+        .fake-address {
+            height: 54px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 14px;
+            min-width: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .address-pill {
+            min-width: 0;
+            flex: 1;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            background: rgba(15, 23, 42, 0.46);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 14px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .address-pill span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            width: 100%;
+        }
+
+        .clock-box {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .clock-pill {
+            min-width: 150px;
+            height: 54px;
+            border-radius: 18px;
+            padding: 0 16px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .clock-inner {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+
+        .clock-time {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.3px;
+        }
+
+        .clock-date {
+            font-size: 12px;
+            color: rgba(230, 238, 248, 0.68);
+            margin-top: 4px;
+        }
+
+        .wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 130px 20px 20px;
+        }
+
+        form {
+            width: 100%;
+            max-width: 720px;
+            z-index: 2;
+        }
+
+        input[type="search"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 18px;
+            border-radius: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: inherit;
+            outline: none;
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.45);
+            transition: all 0.35s ease;
+        }
+
+        input[type="search"]::placeholder {
+            color: rgba(230, 238, 248, 0.6);
+        }
+
+        input[type="search"]:focus {
+            transform: translateY(-3px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 16px 40px rgba(2, 6, 23, 0.55);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .hint {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: rgba(230, 238, 248, 0.65);
+        }
+
+        .dock {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 18px;
+            padding: 16px 22px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            z-index: 20;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .dock-item .label {
+            position: absolute;
+            bottom: 95px;
+            padding: 8px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            opacity: 0;
+            transform: translateY(14px) scale(0.9);
+            transition: all 0.28s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+        }
+
+        .dock-item:hover .label {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .dock-item img.icon {
+            width: 68px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 18px;
+            cursor: pointer;
+            transition:
+                transform 0.28s cubic-bezier(.2, .8, .2, 1),
+                box-shadow 0.28s ease,
+                filter 0.28s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+        }
+
+        .dock-item:hover img.icon {
+            transform: translateY(-16px) scale(1.22);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.38);
+            filter: brightness(1.08);
+        }
+
+        .dock:hover .dock-item:not(:hover) img.icon {
+            transform: scale(0.96);
+        }
+
+        .chatgpt-box:hover img.icon {
+            transform: translateY(-16px) scale(1.22) rotate(180deg);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 8, 20, 0);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            pointer-events: none;
+            transition: all 0.45s ease;
+            z-index: 90;
+        }
+
+        .overlay.show {
+            background: rgba(4, 8, 20, 0.45);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            pointer-events: auto;
+        }
+
+        .app-window {
+            position: fixed;
+            overflow: hidden;
+            background: rgba(14, 18, 30, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 26px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .app-window.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .app-topbar {
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 0 18px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .traffic-btn {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .traffic-btn:hover {
+            transform: scale(1.12);
+            filter: brightness(1.1);
+        }
+
+        .close-btn {
+            background: #ff5f57;
+        }
+
+        .mini-btn {
+            background: #febc2e;
+        }
+
+        .zoom-btn {
+            background: #28c840;
+        }
+
+        .app-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.88);
+            letter-spacing: 0.2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .open-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .open-tab-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .app-body {
+            height: calc(100% - 56px);
+            position: relative;
+            background: #0b1020;
+        }
+
+        .app-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        .app-placeholder {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            background:
+                radial-gradient(circle at top, rgba(16, 185, 129, 0.18), transparent 35%),
+                rgba(8, 12, 22, 0.96);
+        }
+
+        .app-placeholder.show {
+            display: flex;
+        }
+
+        .placeholder-card {
+            max-width: 500px;
+            padding: 28px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .placeholder-card h2 {
+            margin: 0 0 12px;
+            font-size: 24px;
+        }
+
+        .placeholder-card p {
+            margin: 0 0 18px;
+            color: rgba(230, 238, 248, 0.75);
+            line-height: 1.55;
+        }
+
+        .placeholder-link {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #0ea982, #10b981);
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .placeholder-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 28px rgba(16, 185, 129, 0.35);
+        }
+
+        .frame-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 12, 22, 0.85);
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            transition: opacity 0.25s ease;
+            z-index: 2;
+        }
+
+        .frame-loader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 980px) {
+            .topbar {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 14px;
+            }
+
+            .clock-box {
+                justify-content: flex-start;
+            }
+
+            .clock-pill {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .brand-box {
+                justify-content: flex-start;
+            }
+
+            .wrap {
+                padding-top: 190px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .dock {
+                gap: 12px;
+                padding: 14px 16px;
+            }
+
+            .dock-item img.icon {
+                width: 58px;
+                height: 58px;
+            }
+
+            .dock-item .label {
+                bottom: 82px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .top-shell {
+                top: 12px;
+                width: calc(100% - 18px);
+            }
+
+            .topbar {
+                border-radius: 22px;
+            }
+
+            .fake-address {
+                height: 50px;
+                padding: 0 10px;
+            }
+
+            .nav-btn {
+                width: 30px;
+                height: 30px;
+                border-radius: 10px;
+            }
+
+            .address-pill {
+                font-size: 12px;
+                height: 34px;
+                padding: 0 10px;
+            }
+
+            .brand-title {
+                font-size: 15px;
+            }
+
+            .brand-subtitle,
+            .clock-date {
+                font-size: 11px;
+            }
+
+            .clock-time {
+                font-size: 16px;
+            }
+
+            .dock {
+                gap: 10px;
+                padding: 12px 14px;
+                border-radius: 22px;
+            }
+
+            .dock-item img.icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 14px;
+            }
+
+            .dock-item:hover img.icon {
+                transform: translateY(-10px) scale(1.14);
+            }
+
+            .dock-item .label {
+                bottom: 72px;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .chatgpt-box:hover img.icon {
+                transform: translateY(-10px) scale(1.14) rotate(180deg);
+            }
+
+            .open-tab-btn {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .wrap {
+                padding-top: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-fade"></div>
+
+    <div class="top-shell">
+        <div class="topbar">
+            <div class="brand-box">
+                <div class="brand-dot"></div>
+                <div class="brand-text">
+                    <div class="brand-title">Henry Browser</div>
+                    <div class="brand-subtitle">custom start page</div>
+                </div>
+            </div>
+
+            <div class="fake-address">
+                <div class="nav-buttons">
+                    <button class="nav-btn" type="button" id="goHomeBtn">⌂</button>
+                    <button class="nav-btn" type="button" id="refreshBtn">↻</button>
+                </div>
+                <div class="address-pill">
+                    <span id="fakeAddressText">home://henry-browser</span>
+                </div>
+            </div>
+
+            <div class="clock-box">
+                <div class="clock-pill">
+                    <div class="clock-inner">
+                        <div class="clock-time" id="clockTime">00:00:00</div>
+                        <div class="clock-date" id="clockDate">Loading date...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <form action="https://yandex.com/search/" method="GET" target="_blank" aria-label="Yandex qidiruv formasi">
+            <input type="search" name="text" placeholder="Qidiruv so'zingni kiriting va Enter bosing..."
+                autocomplete="off" required />
+            <div class="hint">Enter — Yandexdan qidiruv ochadi</div>
+        </form>
+    </div>
+
+    <div class="dock">
+
+        <div class="dock-item chatgpt-box">
+            <span class="label">ChatGPT</span>
+            <a href="https://chatgpt.com/" class="app-link" data-app-title="ChatGPT" data-embed="false">
+                <img class="icon" src="./openai-chatgpt-logo-icon-free-png (1).webp" alt="ChatGPT">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">YouTube</span>
+            <a href="https://www.youtube.com" class="app-link" data-app-title="YouTube" data-embed="false">
+                <img class="icon" src="./youtube-icons-design_1080184-224.avif" alt="YouTube">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">GitHub</span>
+            <a href="https://github.com" class="app-link" data-app-title="GitHub" data-embed="false">
+                <img class="icon" src="./social_media_logo_github_icon-icons.com_56662.webp" alt="GitHub">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">Torrent</span>
+            <a href="https://itorrents-igruha.org" class="app-link" data-app-title="Torrent" data-embed="true">
+                <img class="icon" src="./utorrent.jpg" alt="Torrent">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">Nekto</span>
+            <a href="https://nekto.me/audiochat#/" class="app-link" data-app-title="Nekto" data-embed="false">
+                <img class="icon" src="./1200x1200bb.webp" alt="Nekto">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">Uzum</span>
+            <a href="https://uzum.uz/ru?utm_source=yandex&utm_medium=cpc&utm_campaign=MARKET_ALWN_B2C_UZB_WEB_YANDEX_SRCH_BRND_TRAFFIC_GA&utm_content=%7Bcreative%7D&utm_term=---autotargeting&etext=2202.MeCh4jKDbbETQ6djhs_pZqR2tGOLzL_uNufUUQeMGr5ldGJteGJnaW91c3ZhaGhm.4abe64618eb4ed3defb5fbc595f0c70c334b9ed0&yclid=6467234499031728127"
+                class="app-link" data-app-title="Uzum" data-embed="false">
+                <img class="icon" src="./Uzum-logo.png" alt="Uzum">
+            </a>
+        </div>
+
+        <div class="dock-item">
+            <span class="label">Henry</span>
+            <a href="./index2.html" class="app-link" data-app-title="Henry" data-embed="true">
+                <img class="icon" src="./the history.png" alt="The">
+            </a>
+        </div>
+
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="app-window" id="appWindow">
+        <div class="app-topbar">
+            <div class="traffic-lights">
+                <button class="traffic-btn close-btn" id="closeApp" aria-label="Close"></button>
+                <button class="traffic-btn mini-btn" type="button" aria-label="Minimize"></button>
+                <button class="traffic-btn zoom-btn" type="button" aria-label="Zoom"></button>
+            </div>
+
+            <div class="app-title" id="appTitle">App</div>
+
+            <div class="top-actions">
+                <a class="open-tab-btn" id="openInTabBtn" href="#" target="_blank">Открыть в вкладке</a>
+            </div>
+        </div>
+
+        <div class="app-body">
+            <div class="frame-loader" id="frameLoader">Загрузка приложения...</div>
+
+            <iframe class="app-frame" id="appFrame" src="about:blank"></iframe>
+
+            <div class="app-placeholder" id="appPlaceholder">
+                <div class="placeholder-card">
+                    <h2>Этот сайт лучше открыть отдельно</h2>
+                    <p id="placeholderText">
+                        Этот сервис обычно не даёт нормально встроить себя в окно браузера.
+                        Поэтому тут честнее сразу открыть его в новой вкладке, без глюков.
+                    </p>
+                    <a class="placeholder-link" id="placeholderLink" href="#" target="_blank">Открыть в новой вкладке</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const appLinks = document.querySelectorAll('.app-link');
+        const appWindow = document.getElementById('appWindow');
+        const overlay = document.getElementById('overlay');
+        const closeApp = document.getElementById('closeApp');
+        const appFrame = document.getElementById('appFrame');
+        const appTitle = document.getElementById('appTitle');
+        const frameLoader = document.getElementById('frameLoader');
+        const appPlaceholder = document.getElementById('appPlaceholder');
+        const placeholderLink = document.getElementById('placeholderLink');
+        const openInTabBtn = document.getElementById('openInTabBtn');
+        const fakeAddressText = document.getElementById('fakeAddressText');
+        const clockTime = document.getElementById('clockTime');
+        const clockDate = document.getElementById('clockDate');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const goHomeBtn = document.getElementById('goHomeBtn');
+
+        let currentTrigger = null;
+        let currentHref = '';
+        let isOpen = false;
+
+        function getTargetWindowRect() {
+            const width = Math.min(window.innerWidth * 0.82, 1180);
+            const height = Math.min(window.innerHeight * 0.78, 760);
+            const left = (window.innerWidth - width) / 2;
+            const top = (window.innerHeight - height) / 2;
+            return { left, top, width, height };
+        }
+
+        function setWindowRect(rect) {
+            appWindow.style.left = rect.left + 'px';
+            appWindow.style.top = rect.top + 'px';
+            appWindow.style.width = rect.width + 'px';
+            appWindow.style.height = rect.height + 'px';
+        }
+
+        function resetAppState() {
+            appPlaceholder.classList.remove('show');
+            frameLoader.classList.remove('hide');
+            appFrame.style.display = 'block';
+            appFrame.src = 'about:blank';
+        }
+
+        function setFakeAddress(value) {
+            fakeAddressText.textContent = value;
+        }
+
+        function updateClock() {
+            const now = new Date();
+
+            const time = now.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            const date = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'short'
+            });
+
+            clockTime.textContent = time;
+            clockDate.textContent = date;
+        }
+
+        function openApp(link) {
+            const icon = link.querySelector('.icon');
+            const rect = icon.getBoundingClientRect();
+            const href = link.getAttribute('href');
+            const title = link.dataset.appTitle || 'App';
+            const canEmbed = link.dataset.embed === 'true';
+
+            currentTrigger = icon;
+            currentHref = href;
+            isOpen = true;
+
+            appTitle.textContent = title;
+            placeholderLink.href = href;
+            openInTabBtn.href = href;
+            setFakeAddress(href);
+
+            resetAppState();
+
+            setWindowRect({
+                left: rect.left,
+                top: rect.top,
+                width: rect.width,
+                height: rect.height
+            });
+
+            appWindow.classList.add('visible');
+
+            requestAnimationFrame(() => {
+                overlay.classList.add('show');
+                appWindow.style.transition = 'all 0.45s cubic-bezier(.2, .8, .2, 1), opacity 0.25s ease';
+                setWindowRect(getTargetWindowRect());
+            });
+
+            if (canEmbed) {
+                setTimeout(() => {
+                    appFrame.src = href;
+                }, 220);
+            } else {
+                appFrame.style.display = 'none';
+                frameLoader.classList.add('hide');
+
+                setTimeout(() => {
+                    appPlaceholder.classList.add('show');
+                }, 240);
+            }
+        }
+
+        function closeCurrentApp() {
+            if (!isOpen || !currentTrigger) return;
+
+            const rect = currentTrigger.getBoundingClientRect();
+            isOpen = false;
+
+            overlay.classList.remove('show');
+            appPlaceholder.classList.remove('show');
+            frameLoader.classList.remove('hide');
+
+            setWindowRect({
+                left: rect.left,
+                top: rect.top,
+                width: rect.width,
+                height: rect.height
+            });
+
+            setTimeout(() => {
+                appWindow.classList.remove('visible');
+                appFrame.src = 'about:blank';
+                appFrame.style.display = 'block';
+                setFakeAddress('home://henry-browser');
+            }, 460);
+        }
+
+        appLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openApp(link);
+            });
+        });
+
+        closeApp.addEventListener('click', closeCurrentApp);
+        overlay.addEventListener('click', closeCurrentApp);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCurrentApp();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (!isOpen) return;
+            setWindowRect(getTargetWindowRect());
+        });
+
+        appFrame.addEventListener('load', () => {
+            if (!isOpen) return;
+            frameLoader.classList.add('hide');
+        });
+
+        appFrame.addEventListener('error', () => {
+            frameLoader.classList.add('hide');
+        });
+
+        refreshBtn.addEventListener('click', () => {
+            if (isOpen && currentHref && appFrame.style.display !== 'none') {
+                appFrame.src = currentHref;
+                frameLoader.classList.remove('hide');
+            } else {
+                location.reload();
+            }
+        });
+
+        goHomeBtn.addEventListener('click', () => {
+            if (isOpen) {
+                closeCurrentApp();
+            }
+            setFakeAddress('home://henry-browser');
+        });
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+
+</html>
